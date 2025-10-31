@@ -26,7 +26,7 @@ def login():
 
     # 🟢 Mostrar mensaje persistente si ya hubo conexión exitosa
     if st.session_state.get("conexion_exitosa"):
-        st.success(f"✅ Sesión inciada correctamente como ({Usuario}).")
+        st.success("✅ Sesión inciada correctamente.")
 
     Usuario = st.text_input("Usuario", key="Usuario_input")
     Contraseña = st.text_input("Contraseña", type="password", key="Contraseña_input")
