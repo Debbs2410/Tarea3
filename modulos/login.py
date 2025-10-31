@@ -1,6 +1,5 @@
 import streamlit as st
 from modulos.config.conexion import obtener_conexion
-from modulos.venta import mostrar_venta
 
 def verificar_usuario(Usuario, Contraseña):
     """
@@ -16,7 +15,7 @@ def verificar_usuario(Usuario, Contraseña):
         cursor = con.cursor()
         query = "SELECT Id_cliente, Usuario FROM Clientes WHERE Usuario = %s AND Contraseña = %s"
         cursor.execute(query, (Usuario, Contraseña))
-        result = cursor.fetchone()  # result será algo como (Id_cliente, Usuario)
+        result = cursor.fetchone()  # devuelve (Id_cliente, Usuario)
         return result if result else None
     finally:
         con.close()
@@ -25,17 +24,19 @@ def verificar_usuario(Usuario, Contraseña):
 def login():
     st.title("Inicio de sesión")
 
-    # 🟢 Mensaje si ya hubo conexión exitosa
-    if st.session_state.get("conexion_exitosa"):
-        st.success("✅ Sesión iniciada correctamente.")
-
     Usuario = st.text_input("Usuario", key="Usuario_input")
     Contraseña = st.text_input("Contraseña", type="password", key="Contraseña_input")
 
     if st.button("Iniciar sesión"):
         resultado = verificar_usuario(Usuario, Contraseña)
         if resultado:
-            cliente_id, usuario_nombre = resultado  # Extraemos Id_cliente y Usuario
+            Id_cliente, usuario_nombre = resultado
+            st.session_state["sesion_iniciada"] = True
+            st.session_state["Id_cliente"] = Id_cliente  # <-- aquí guardamos Id_cliente
             st.session_state["usuario"] = usuario_nombre
-            st
+            st.success(f"Bienvenido ({usuario_nombre}) 👋")
+            st.rerun()
+        else:
+            st.error("❌ Credenciales incorrectas.")
+
 
