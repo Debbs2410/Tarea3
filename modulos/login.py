@@ -32,11 +32,9 @@ def login():
         if resultado:
             Id_cliente, usuario_nombre = resultado
             st.session_state["sesion_iniciada"] = True
-            st.session_state["Id_cliente"] = Id_cliente  # <-- aquí guardamos Id_cliente
+            st.session_state["Id_cliente"] = Id_cliente  # guardamos Id_cliente
             st.session_state["usuario"] = usuario_nombre
             st.success(f"Bienvenido ({usuario_nombre}) 👋")
             st.rerun()
         else:
             st.error("❌ Credenciales incorrectas.")
-
-
