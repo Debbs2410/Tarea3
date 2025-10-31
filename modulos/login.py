@@ -5,7 +5,7 @@ from modulos.config.conexion import obtener_conexion
 def verificar_usuario(Usuario, Contraseña):
     con = obtener_conexion()
     if not con:
-        st.error("⚠️ No se pudo conectar a la base de datos.")
+        st.error("⚠️ No se puede iniciar sesión en estos momentos.")
         return None
     else:
         # ✅ Guardar en el estado que la conexión fue exitosa
@@ -26,7 +26,7 @@ def login():
 
     # 🟢 Mostrar mensaje persistente si ya hubo conexión exitosa
     if st.session_state.get("conexion_exitosa"):
-        st.success("✅ Sesión inciada correctamente.")
+        st.success("✅ Sesión iniciada correctamente.")
 
     Usuario = st.text_input("Usuario", key="Usuario_input")
     Contraseña = st.text_input("Contraseña", type="password", key="Contraseña_input")
