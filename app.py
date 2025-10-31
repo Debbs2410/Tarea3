@@ -2,14 +2,18 @@
 import streamlit as st
 from modulos.venta import mostrar_venta
 from modulos.login import login
-from modulos.productos import mostrar_productos  # Importamos la función para productos
+from modulos.productos import mostrar_productos
+from modulos.cliente import mostrar_info_cliente  # Importamos la función para info del cliente
 
-# Inicializamos la variable de sesión si no existe
+# Inicializar variable de sesión si no existe
 if "sesion_iniciada" not in st.session_state:
     st.session_state["sesion_iniciada"] = False
 
 # Si la sesión está iniciada
 if st.session_state["sesion_iniciada"]:
+    # Mostrar información del cliente usando Id_cliente
+    mostrar_info_cliente(st.session_state["usuario_id"])
+
     # Menú lateral con opciones
     opciones = ["Ventas", "Productos", "Otra opción"]
     seleccion = st.sidebar.selectbox("Selecciona una opción", opciones)
@@ -20,9 +24,10 @@ if st.session_state["sesion_iniciada"]:
     elif seleccion == "Productos":
         mostrar_productos()
     elif seleccion == "Otra opción":
-        st.write("Has seleccionado otra opción.")  # Aquí podrías agregar más secciones
+        st.write("Has seleccionado otra opción.")  # Aquí puedes agregar más secciones
 
-# Si la sesión no está iniciada, mostrar el login
+# Si la sesión no está iniciada
 else:
     login()
+
 
