@@ -5,7 +5,7 @@ def mostrar_productos():
     """Muestra todos los productos de la base de datos"""
     conexion = obtener_conexion()
     cursor = conexion.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM productos")
+    cursor.execute("SELECT * FROM Productos")
     productos = cursor.fetchall()
     conexion.close()
 
