@@ -1,31 +1,32 @@
-from modulos.clientes import mostrar_info_cliente, agregar_cliente
+import streamlit as st
+from modulos.venta import mostrar_venta
+from modulos.login import login
+from modulos.productos import mostrar_productos
+from modulos.clientes import mostrar_info_cliente  # import corregido
 
-# Menú lateral
-opciones = ["Ventas", "Productos", "Cliente", "Agregar Cliente", "Otra opción"]
-seleccion = st.sidebar.selectbox("Selecciona una opción", opciones)
+# Inicializar variables de sesión
+if "sesion_iniciada" not in st.session_state:
+    st.session_state["sesion_iniciada"] = False
+if "Id_cliente" not in st.session_state:
+    st.session_state["Id_cliente"] = None
 
-# Mostrar contenido según la opción
-if seleccion == "Ventas":
-    mostrar_venta()
-elif seleccion == "Productos":
-    mostrar_productos()
-elif seleccion == "Cliente":
-    mostrar_info_cliente(st.session_state["Id_cliente"])
-elif seleccion == "Agregar Cliente":
-    st.subheader("Agregar un nuevo cliente")
+# Si la sesión está iniciada
+if st.session_state["sesion_iniciada"]:
+    # Menú lateral
+    opciones = ["Ventas", "Productos", "Cliente", "Otra opción"]
+    seleccion = st.sidebar.selectbox("Selecciona una opción", opciones)
 
-    with st.form("form_agregar_cliente", clear_on_submit=True):
-        usuario = st.text_input("Usuario")
-        contrasena = st.text_input("Contraseña", type="password")
-        correo = st.text_input("Correo")
-        telefono = st.text_input("Teléfono")
-        edad = st.number_input("Edad", min_value=0, max_value=120, step=1)
-        submit = st.form_submit_button("Agregar Cliente")
+    # Mostrar contenido según la opción
+    if seleccion == "Ventas":
+        mostrar_venta()
+    elif seleccion == "Productos":
+        mostrar_productos()
+    elif seleccion == "Cliente":
+        mostrar_info_cliente(st.session_state["Id_cliente"])  # se muestra como contenido principal
+    elif seleccion == "Otra opción":
+        st.write("Has seleccionado otra opción.")
 
-        if submit:
-            if usuario and contrasena and correo and telefono:
-                agregar_cliente(usuario, contrasena, correo, telefono, edad)
-            else:
-                st.error("Todos los campos son obligatorios.")
-elif seleccion == "Otra opción":
-    st.write("Has seleccionado otra opción.")
+# Si no hay sesión iniciada
+else:
+    login()
+
