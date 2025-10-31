@@ -3,10 +3,10 @@ from modulos.config.conexion import obtener_conexion
 
 def mostrar_info_cliente(Id_cliente):
     """
-    Muestra la información del cliente en el menú lateral según su Id_cliente.
+    Muestra la información del cliente en el área principal de la app.
     """
     if Id_cliente is None:
-        st.sidebar.info("Usuario no identificado.")
+        st.info("Usuario no identificado.")
         return
 
     conexion = obtener_conexion()
@@ -19,11 +19,11 @@ def mostrar_info_cliente(Id_cliente):
     conexion.close()
 
     if cliente:
-        st.sidebar.subheader("Información del Cliente")
-        st.sidebar.write(f"Nombre: {cliente['Usuario']}")
-        st.sidebar.write(f"Correo: {cliente['Correo']}")
-        st.sidebar.write(f"Teléfono: {cliente['Telefono']}")
-        st.sidebar.write(f"Edad: {cliente['Edad']} años")
+        st.subheader("Información del Cliente")
+        st.write(f"**Nombre:** {cliente['Usuario']}")
+        st.write(f"**Correo:** {cliente['Correo']}")
+        st.write(f"**Teléfono:** {cliente['Telefono']}")
+        st.write(f"**Edad:** {cliente['Edad']} años")
     else:
-        st.sidebar.info("Cliente no encontrado.")
+        st.info("Cliente no encontrado.")
 
