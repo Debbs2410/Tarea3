@@ -26,3 +26,23 @@ def mostrar_info_cliente(Id_cliente):
         st.write(f"**Edad:** {cliente['Edad']} años")
     else:
         st.info("Cliente no encontrado.")
+
+
+def agregar_cliente(usuario, contrasena, correo, telefono, edad):
+    """
+    Inserta un nuevo cliente en la tabla Clientes desde la app.
+    """
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+    try:
+        query = """
+        INSERT INTO Clientes (Usuario, Contraseña, Correo, Telefono, Edad)
+        VALUES (%s, %s, %s, %s, %s)
+        """
+        cursor.execute(query, (usuario, contrasena, correo, telefono, edad))
+        conexion.commit()
+        st.success(f"Cliente '{usuario}' agregado correctamente.")
+    except Exception as e:
+        st.error(f"No se pudo agregar el cliente: {e}")
+    finally:
+        conexion.close()
