@@ -1,21 +1,24 @@
 # app.py
 import streamlit as st
-from modulos.venta import mostrar_venta  # Importamos la función mostrar_venta del módulo venta
+from modulos.venta import mostrar_venta
 from modulos.login import login
+from modulos.productos import mostrar_productos  # Importamos la función para productos
 
-# Verificamos si existe la variable de sesión
+# Inicializamos la variable de sesión si no existe
 if "sesion_iniciada" not in st.session_state:
     st.session_state["sesion_iniciada"] = False
 
 # Si la sesión está iniciada
 if st.session_state["sesion_iniciada"]:
-    # Mostrar el menú lateral
-    opciones = ["Ventas", "Otra opción"]  # Agrega más opciones si las necesitas
+    # Menú lateral con opciones
+    opciones = ["Ventas", "Productos", "Otra opción"]
     seleccion = st.sidebar.selectbox("Selecciona una opción", opciones)
 
-    # Mostramos el contenido según la opción elegida
+    # Mostrar contenido según la opción seleccionada
     if seleccion == "Ventas":
         mostrar_venta()
+    elif seleccion == "Productos":
+        mostrar_productos()
     elif seleccion == "Otra opción":
         st.write("Has seleccionado otra opción.")  # Aquí podrías agregar más secciones
 
