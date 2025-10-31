@@ -32,7 +32,7 @@ def login():
     Contraseña = st.text_input("Contraseña", type="password", key="Contraseña_input")
 
     if st.button("Iniciar sesión"):
-        tipo = verificar_usuario(usuario, contrasena)
+        tipo = verificar_usuario(Usuario, Contraseña)
         if tipo:
             st.session_state["usuario"] = Usuario
             st.session_state["tipo_usuario"] = tipo
