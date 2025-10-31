@@ -3,7 +3,7 @@ import streamlit as st
 from modulos.venta import mostrar_venta
 from modulos.login import login
 from modulos.productos import mostrar_productos
-from modulos.cliente import mostrar_info_cliente  # Importamos la función para info del cliente
+from modulos.clientes import mostrar_info_cliente  # Importamos la función para info del cliente
 
 # Inicializar variable de sesión si no existe
 if "sesion_iniciada" not in st.session_state:
